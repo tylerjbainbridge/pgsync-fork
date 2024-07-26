@@ -1,12 +1,14 @@
-FROM python:3.9
+FROM ruby:3.1.6-alpine3.20
+
+RUN apk add --update build-base libpq-dev postgresql-client && \
+    gem install pgsync && \
+    apk del build-base && \
+    rm -rf /var/cache/apk/*
+
 ARG WORKDIR=/code
 RUN mkdir $WORKDIR
-ADD ./examples/ $WORKDIR/examples
+ADD ./ $WORKDIR/
 WORKDIR $WORKDIR
-RUN pip install git+https://github.com/toluaina/pgsync.git
-COPY ./docker/wait-for-it.sh wait-for-it.sh
-ARG EXAMPLE_NAME=airbnb
-ENV EXAMPLE_NAME=$EXAMPLE_NAME
-COPY ./docker/runserver.sh runserver.sh
-RUN chmod +x wait-for-it.sh
+RUN gem install pgsync
+RUN echo Starting sync...
 RUN chmod +x runserver.sh
