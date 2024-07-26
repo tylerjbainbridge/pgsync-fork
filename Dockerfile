@@ -12,4 +12,4 @@ WORKDIR $WORKDIR
 RUN gem install pgsync
 RUN echo Starting sync...
 
-CMD runserver.sh
+CMD ./runserver.sh
