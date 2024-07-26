@@ -1,11 +1,12 @@
 version: "3.8"
 
 services:
-    pgsync:
+    copydb:
+        platform: linux/amd64
         build:
             context: .
             dockerfile: Dockerfile
-        command: ./runserver.sh
+        command: ./copydb.sh
         sysctls:
             - net.ipv4.tcp_keepalive_time=200
             - net.ipv4.tcp_keepalive_intvl=200

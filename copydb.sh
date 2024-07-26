@@ -1,0 +1,1 @@
+pgcopydb clone --source=$PRODUCTION_DATABASE_URL --target=$STAGING_DATABASE_URL
